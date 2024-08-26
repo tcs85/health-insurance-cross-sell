@@ -29,7 +29,7 @@ class HealthInsurance:
         
         return df2
     
-    def data_preparation(df5):
+    def data_preparation(self, df5):
         # 3.0 Preprocessing
         # Annual Premium - Standard Scaler
         df5['annual_premium'] = self.annual_premium_scaler.transform(df5[['annual_premium']].values)
