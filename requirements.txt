@@ -1,0 +1,11 @@
+ipykernel==6.29.5
+ipython==8.26.0
+Jinja2==3.1.4
+matplotlib==3.9.2
+numpy==1.26.4
+pandas==2.2.2
+requests==2.32.3
+scikit-learn==1.5.1
+scikit-plot==0.3.7
+scipy==1.11.4
+seaborn==0.13.2
