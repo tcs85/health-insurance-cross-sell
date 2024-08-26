@@ -2,7 +2,7 @@ import pickle
 import pandas as pd
 from flask import Flask, request, Response
 import os
-# from models import lr_model
+from health_insurance import HealthInsurance
 
 # loading model
 path= '../models/'
