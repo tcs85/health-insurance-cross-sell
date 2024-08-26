@@ -1,7 +1,6 @@
 import pickle
 import pandas as pd
 from flask import Flask, request, Response
-from health_insurance_cross_sell import HealthInsurance
 # from models import lr_model
 
 # loading model
