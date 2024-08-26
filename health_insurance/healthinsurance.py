@@ -1,3 +1,7 @@
+import pickle 
+import pandas as pd  
+from sklearn.preprocessing import StandardScaler, MinMaxScaler  
+
 class HealthInsurance:
     def __init__(self):
         self.home_path = ''
