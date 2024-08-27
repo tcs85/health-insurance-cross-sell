@@ -47,7 +47,7 @@ class HealthInsurance:
         df5.loc[:, 'region_code'] = df5['region_code'].map( self.target_encode_region_code )
 
         # vehicle_age - One Hot Encoding / Frequency Encoding
-        df5 = pd.get_dummies( df5, prefix='vehicle_age', columns=['vehicle_age'] )
+        # df5 = pd.get_dummies( df5, prefix='vehicle_age', columns=['vehicle_age'] )
         # df5.loc[:, 'vehicle_age'] = df5['vehicle_age'].map(target_encode_vehicle_age)
         
         # policy_sales_channel - Target Encoding / Frequency Encoding

@@ -7,7 +7,7 @@ from health_insurance.healthinsurance import HealthInsurance
 
 # loading model
 path= '../models/'
-model = pickle.load(open('models/lr_model.pkl', 'rb'))
+model = pickle.load(open('models/model_health_insurance.pkl', 'rb'))
 
 # initialize API
 app = Flask(__name__)
