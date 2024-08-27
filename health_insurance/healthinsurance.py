@@ -5,12 +5,13 @@ from sklearn.preprocessing import StandardScaler, MinMaxScaler
 class HealthInsurance:
     def __init__(self):
         self.home_path = ''
-        self.annual_premium_scaler = pickle.load(open('features/annual_premium_scaler.pkl', 'rb'))
-        self.age_scaler = pickle.load(open('features/age_scaler.pkl', 'rb'))
-        self.vintage_scaler = pickle.load(open('features/vintage_scaler.pkl', 'rb'))
-        self.target_encode_gender = pickle.load(open('features/target_encode_gender.pkl', 'rb'))
+        self.annual_premium_scaler     = pickle.load(open('features/annual_premium_scaler.pkl', 'rb'))
+        self.age_scaler                = pickle.load(open('features/age_scaler.pkl', 'rb'))
+        self.vintage_scaler            = pickle.load(open('features/vintage_scaler.pkl', 'rb'))
+        self.target_encode_gender      = pickle.load(open('features/target_encode_gender.pkl', 'rb'))
         self.target_encode_region_code = pickle.load(open('features/target_encode_region_code.pkl', 'rb'))
-        self.fe_policy_sales_channel = pickle.load(open('features/fe_policy_sales_channel.pkl', 'rb'))
+        self.fe_policy_sales_channel   = pickle.load(open('features/fe_policy_sales_channel.pkl', 'rb'))
+        # self.target_vehicle_age        = pickle.load(open('features/target_vehicle_age.pkl', 'rb'))
         
     def data_cleaning(self, df1):
         ## 1.0 Rename Columns
@@ -47,7 +48,8 @@ class HealthInsurance:
 
         # vehicle_age - One Hot Encoding / Frequency Encoding
         df5 = pd.get_dummies( df5, prefix='vehicle_age', columns=['vehicle_age'] )
-
+        # df5.loc[:, 'vehicle_age'] = df5['vehicle_age'].map(target_encode_vehicle_age)
+        
         # policy_sales_channel - Target Encoding / Frequency Encoding
         df5.loc[:, 'policy_sales_channel'] = df5['policy_sales_channel'].map( self.fe_policy_sales_channel )
         
@@ -55,7 +57,8 @@ class HealthInsurance:
         cols_selected = ['annual_premium', 'vintage', 'age', 'region_code', 'vehicle_damage', 'previously_insured',
                          'policy_sales_channel']
         
-        return df5 [cols_selected]
+        
+        return df5 [cols_selected].dropna()
     
     def get_prediction( self, model, original_data, test_data ):
         # model prediction
