@@ -30,37 +30,37 @@ class HealthInsurance:
     
     def data_preparation(self, df5):
         # 3.0 Preprocessing
-        # Annual Premium - Standard Scaler
-        df5['annual_premium'] = self.annual_premium_scaler.transform(df5[['annual_premium']].values)
+        # anual premium - StandarScaler
+        df5['annual_premium'] = self.annual_premium_scaler.transform( df5[['annual_premium']].values )
+
+        # Age - MinMaxScaler
+        df5['age'] = self.age_scaler.transform( df5[['age']].values )
+
+        # Vintage - MinMaxScaler
+        df5['vintage'] = self.vintage_scaler.transform( df5[['vintage']].values )
+
+        # gender - One Hot Encoding / Target Encoding
+        df5.loc[:, 'gender'] = df5['gender'].map( self.target_encode_gender )
+
+        # region_code - Target Encoding / Frequency Encoding
+        df5.loc[:, 'region_code'] = df5['region_code'].map( self.target_encode_region_code )
+
+        # vehicle_age - One Hot Encoding / Frequency Encoding
+        df5 = pd.get_dummies( df5, prefix='vehicle_age', columns=['vehicle_age'] )
+
+        # policy_sales_channel - Target Encoding / Frequency Encoding
+        df5.loc[:, 'policy_sales_channel'] = df5['policy_sales_channel'].map( self.fe_policy_sales_channel )
         
-        # Age - Min Max Scaler
-        df5['age'] = self.age_scalar.transform(df5[['age']].values)
-        
-        # Vintage - Min Max Scaler
-        df5['vintage'] = self.vintage_scalar.transform(df5[['vintage']].values)
-        
-        # gender - Target Encoding
-        df5.loc[:, 'gender'] = df5.loc[:, 'gender'].map(self.target_encode_gender).astype('float64') 
-        
-        # region_code - Target Encoding
-        df5.loc[:, 'region_code'] = df5.loc[:, 'region_code'].map(self.target_encode_region_code).astype('float64')
-        
-        # policy_sales_channel - Frequency Encoding
-        df5.loc[:, 'policy_sales_channel'] = df5.loc[:, 'policy_sales_channel'].map(self.fe_policy_sales_channel).astype('float64')
-        
-        # Vehicle Age
-        df5 = pd.get_dummies(df5, prefix=['vehicle_age'], columns=['vehicle_age'])
-        
-        # Featuring Selection
+        # Feature Selection
         cols_selected = ['annual_premium', 'vintage', 'age', 'region_code', 'vehicle_damage', 'previously_insured',
                          'policy_sales_channel']
-    
+        
         return df5 [cols_selected]
     
     def get_prediction( self, model, original_data, test_data ):
         # model prediction
         pred = model.predict_proba( test_data )
-
+        
         # join prediction into original data
         original_data['score'] = pred[:, 1].tolist()
         
