@@ -23,7 +23,7 @@ class HealthInsurance:
     def feature_engineering(self, df2):
         ## 2.0 Feature Engineering
         # vehicle age
-        df2['vehicle_age'] = df2['vehicle_age'].apply( lambda x: 'over_2_years' if x == '> 2 Years' else 'between_1_2_year' if x == '1-2 Year' else 'below_1_year' )
+        # df2['vehicle_age'] = df2['vehicle_age'].apply( lambda x: 'over_2_years' if x == '> 2 Years' else 'between_1_2_year' if x == '1-2 Year' else 'below_1_year' )
         # vehicle damage
         df2['vehicle_damage'] = df2['vehicle_damage'].apply( lambda x: 1 if x == 'Yes' else 0)
         
@@ -47,7 +47,7 @@ class HealthInsurance:
         df5.loc[:, 'region_code'] = df5['region_code'].map( self.target_encode_region_code )
 
         # vehicle_age - One Hot Encoding / Frequency Encoding
-        df5 = pd.get_dummies( df5, prefix='vehicle_age', columns=['vehicle_age'] )
+        # df5 = pd.get_dummies( df5, prefix='vehicle_age', columns=['vehicle_age'] )
         # df5.loc[:, 'vehicle_age'] = df5['vehicle_age'].map(target_encode_vehicle_age)
         
         # policy_sales_channel - Target Encoding / Frequency Encoding
